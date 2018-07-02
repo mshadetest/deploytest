@@ -2,11 +2,11 @@ version: "3.2"
 
 services:
   blue:
-    image: ${APP_IMAGE}:blue
+    image: ${REPO_URL}:blue
     deploy:
       replicas: 2
       labels:
-        com.docker.lb.hosts: ${BLUEURL}
+        com.docker.lb.hosts: ${BLUE_HOSTNAME}
         com.docker.lb.port: 80
         com.docker.lb.network: testapp-network
         service-status: live
@@ -14,11 +14,11 @@ services:
       - testapp-network
 
   green:
-    image: ${APP_IMAGE}:green
+    image: ${REPO_URL}:green
     deploy:
       replicas: 2
       labels:
-        com.docker.lb.hosts: ${LIVEURL},${GREENURL}
+        com.docker.lb.hosts: ${LIVE_HOSTNAME},${GREEN_HOSTNAME}
         com.docker.lb.port: 80
         com.docker.lb.network: testapp-network
         service-status: standby
