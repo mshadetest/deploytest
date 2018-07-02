@@ -1,0 +1,30 @@
+version: "3.2"
+
+services:
+  blue:
+    image: ${APP_IMAGE}:blue
+    deploy:
+      replicas: 2
+      labels:
+        com.docker.lb.hosts: ${BLUEURL}
+        com.docker.lb.port: 80
+        com.docker.lb.network: testapp-network
+        service-status: live
+    networks:
+      - testapp-network
+
+  green:
+    image: ${APP_IMAGE}:green
+    deploy:
+      replicas: 2
+      labels:
+        com.docker.lb.hosts: ${LIVEURL},${GREENURL}
+        com.docker.lb.port: 80
+        com.docker.lb.network: testapp-network
+        service-status: standby
+    networks:
+      - testapp-network
+
+networks:
+  testapp-network:
+    driver: overlay
