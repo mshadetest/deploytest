@@ -1,0 +1,8 @@
+pipeline:
+  docker:
+    image: plugins/docker
+    repo: dtr.foolhq.com/drone-deploy/testapp
+    registry: dtr.foolhq.com
+    secrets: [ docker_username, docker_password ]
+    # http://plugins.drone.io/drone-plugins/drone-docker/
+    auto_tag: true
